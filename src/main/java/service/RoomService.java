@@ -37,5 +37,10 @@ public class RoomService {
       }
     }
 
+    public boolean isRoomAvailable(int id) throws ServiceException {
+        Room room = getRoomById(id);
+        return room != null && room.isAvailable(); // requires isAvailable() in Room
+    }  
+
     
 }
