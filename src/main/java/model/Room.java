@@ -25,5 +25,12 @@ public class Room {
         return "Room " + roomId + " (" + roomType + ") - $" + price + " - " + (isAvailable ? "Available" : "Booked");
     }
 
-    // Getters and Setters
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
 }
