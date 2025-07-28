@@ -15,4 +15,17 @@ public class RoomService {
     public RoomService(RoomDAO roomDAO) {
         this.roomDAO = roomDAO;
     }
+
+    public List<Room> getAvailableRooms() throws ServiceException {
+    try {
+        List<Room> rooms = roomDAO.getAllAvailableRooms();
+        cache.clear();
+        for (Room r : rooms) {
+            cache.put(r.getRoomId(), r); // assumes Room has getRoomId()
+        }
+        return rooms;
+    } catch (Exception e) {
+        throw new ServiceException("Failed to fetch available rooms", e);
+    }
+}
 }
