@@ -64,5 +64,14 @@ public class BookingService {
         }
     }
 
+    public double calculateCost(Booking booking, double dailyRate) {
+        if (booking == null)
+            throw new IllegalArgumentException("Booking cannot be null.");
+        if (dailyRate < 0)
+            throw new IllegalArgumentException("Daily rate must be non-negative.");
+
+        return booking.calculateCost(dailyRate);
+    }
+
     
 }
