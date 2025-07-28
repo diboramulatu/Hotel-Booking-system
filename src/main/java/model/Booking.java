@@ -25,5 +25,7 @@ public class Booking {
         return getBookingDuration() * dailyRate;
     }
 
-    // Getters and Setters
+    public int getBookingId() {
+        return bookingId;
+    }
 }
