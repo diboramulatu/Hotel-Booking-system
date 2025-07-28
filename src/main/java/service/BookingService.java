@@ -16,5 +16,30 @@ public class BookingService {
         this.roomService = roomService;
     }
 
-    // methods coming next...
+    public Booking createBooking(int customerId, int roomId, LocalDate checkIn, LocalDate checkOut)
+        throws InvalidBookingException, RoomUnavailableException, ServiceException {
+
+        try {
+            InputValidator.requirePositiveId(customerId, "Customer ID");
+            InputValidator.requirePositiveId(roomId, "Room ID");
+            BookingRules.ensureValidDates(checkIn, checkOut);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidBookingException(e.getMessage());
+        }
+
+    // Check room availability
+        if (!roomService.isRoomAvailable(roomId)) {
+            throw new RoomUnavailableException("Room " + roomId + " is not available.");
+        }
+
+        try {
+            Booking booking = new Booking(0, customerId, roomId, checkIn, checkOut);
+            bookingDAO.addBooking(booking);
+            roomService.markBooked(roomId);
+            return booking;
+        } catch (Exception e) {
+            roomService.markReleased(roomId); // rollback
+            throw new ServiceException("Failed to create booking.", e);
+        }
+    }
 }
