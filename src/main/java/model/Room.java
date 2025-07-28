@@ -33,4 +33,19 @@ public class Room {
         return isAvailable;
     }
 
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 }

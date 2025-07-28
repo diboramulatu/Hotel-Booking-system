@@ -58,6 +58,5 @@ public class RoomService {
             throw new ServiceException("Failed to mark room as released", e);
         }
     }
-
     
 }
