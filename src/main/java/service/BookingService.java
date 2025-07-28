@@ -42,4 +42,27 @@ public class BookingService {
             throw new ServiceException("Failed to create booking.", e);
         }
     }
+
+    public void cancelBooking(int bookingId, int roomId) throws ServiceException {
+        try {
+            InputValidator.requirePositiveId(bookingId, "Booking ID");
+            InputValidator.requirePositiveId(roomId, "Room ID");
+
+            bookingDAO.cancelBooking(bookingId);
+            roomService.markReleased(roomId);
+        } catch (Exception e) {
+            throw new ServiceException("Failed to cancel booking.", e);
+        }
+    }
+
+    public List<Booking> getBookingsByCustomer(int customerId) throws ServiceException {
+        try {
+            InputValidator.requirePositiveId(customerId, "Customer ID");
+            return bookingDAO.getBookingsByCustomer(customerId);
+        } catch (Exception e) {
+            throw new ServiceException("Failed to get bookings.", e);
+        }
+    }
+
+    
 }
