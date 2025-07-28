@@ -42,5 +42,22 @@ public class RoomService {
         return room != null && room.isAvailable(); // requires isAvailable() in Room
     }  
 
+    public void markBooked(int id) throws ServiceException {
+        try {
+            roomDAO.updateRoomAvailability(id, false);
+            cache.remove(id); // refresh on next call
+        } catch (Exception e) {
+            throw new ServiceException("Failed to mark room as booked", e);
+        }
+    }
+
+    public void markReleased(int id) throws ServiceException {
+     try {
+            roomDAO.updateRoomAvailability(id, true);
+        } catch (Exception e) {
+            throw new ServiceException("Failed to mark room as released", e);
+        }
+    }
+
     
 }
