@@ -3,6 +3,7 @@ package ui;
 import model.*;
 import service.*;
 import exception.*;
+import dao.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -10,10 +11,15 @@ import java.util.*;
 public class MainMenu {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        BookingService bookingService = new BookingService();
+        
+        // Initialize DAOs and Services
+        RoomDAO roomDAO = new RoomDAO();
+        BookingDAO bookingDAO = new BookingDAO();
+        RoomService roomService = new RoomService(roomDAO);
+        BookingService bookingService = new BookingService(bookingDAO, roomService);
 
-        Room room1 = new SingleRoom(1, 100.0);
-        Room room2 = new DoubleRoom(2, 150.0);
+        Room room1 = new SingleRoom(4, 100.0, "103");
+        Room room2 = new DoubleRoom(2, 150.0,"104");
         Customer customer = new Customer();
 
         System.out.println("=== Welcome to the Hotel Booking System ===");
@@ -30,14 +36,14 @@ public class MainMenu {
                         System.out.print("Check-out date (YYYY-MM-DD): ");
                         LocalDate out = LocalDate.parse(scanner.next());
 
-                        Booking booking = bookingService.createBooking(1, room1, in, out);
+                        Booking booking = bookingService.createBooking(1, room1.getRoomId(), in, out);
                         System.out.println("Booking successful: ID = " + booking.getBookingId());
                         break;
 
                     case 2:
                         System.out.print("Booking ID to cancel: ");
                         int id = scanner.nextInt();
-                        bookingService.cancelBooking(id, room1);
+                        bookingService.cancelBooking(id, room1.getRoomId());
                         System.out.println("Booking cancelled.");
                         break;
 

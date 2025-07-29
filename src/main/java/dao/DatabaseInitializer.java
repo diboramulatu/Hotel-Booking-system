@@ -36,11 +36,19 @@ public class DatabaseInitializer {
                     "FOREIGN KEY(roomId) REFERENCES Room(id)" +
                     ");";
             stmt.execute(bookingTable);
+            stmt.executeUpdate("INSERT OR IGNORE INTO customer (id, name, email) VALUES (1, 'Alice', 'alice@example.com')");
+            stmt.executeUpdate("INSERT OR IGNORE INTO room (id, roomType, price, roomNumber) VALUES (1, 'single', 100.0, 1)");
+            stmt.executeUpdate("INSERT OR IGNORE INTO room (id, roomType, price, roomNumber) VALUES (2, 'double', 150.0, 1)");
+            stmt.executeUpdate("INSERT OR IGNORE INTO booking (id, customerId, roomId, checkInDate, checkOutDate) VALUES (1, 1, 1, '2025-08-09', '2025-08-11')");
+            
 
-            System.out.println("✅ Database tables created successfully.");
+            System.out.println("Database tables created successfully.");
 
         } catch (Exception e) {
-            System.out.println("❌ Failed to initialize database: " + e.getMessage());
+            System.out.println("Failed to initialize database: " + e.getMessage());
         }
+       
     }
+    
 }
+
