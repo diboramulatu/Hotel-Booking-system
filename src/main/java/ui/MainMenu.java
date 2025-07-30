@@ -18,8 +18,8 @@ public class MainMenu {
         RoomService roomService = new RoomService(roomDAO);
         BookingService bookingService = new BookingService(bookingDAO, roomService);
 
-        Room room1 = new SingleRoom(1, 100.0);
-        Room room2 = new DoubleRoom(2, 150.0);
+        Room room1 = new SingleRoom(4, 100.0, "103");
+        Room room2 = new DoubleRoom(2, 150.0,"104");
         Customer customer = new Customer();
 
         System.out.println("=== Welcome to the Hotel Booking System ===");
