@@ -7,6 +7,7 @@ import model.Room;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDate;
 
 public class RoomService {
     private final RoomDAO roomDAO;
@@ -16,9 +17,9 @@ public class RoomService {
         this.roomDAO = roomDAO;
     }
 
-    public List<Room> getAvailableRooms() throws ServiceException {
+    public List<Room> getAvailableRooms(LocalDate checkIn , LocalDate checkOut) throws ServiceException {
         try {
-            List<Room> rooms = roomDAO.getAllAvailableRooms();
+            List<Room> rooms = roomDAO.getAllAvailableRooms(checkIn, checkOut);
             cache.clear();
             for (Room r : rooms) {
                 cache.put(r.getRoomId(), r); // assumes Room has getRoomId()
@@ -37,10 +38,10 @@ public class RoomService {
       }
     }
 
-    public boolean isRoomAvailable(int id) throws ServiceException {
-        Room room = getRoomById(id);
-        return room != null && room.isAvailable(); // requires isAvailable() in Room
-    }  
+    // public boolean isRoomAvailable(int id) throws ServiceException {
+    //     Room room = getRoomById(id);
+    //     return room != null && room.isAvailable(); // requires isAvailable() in Room
+    // }  
 
     public void markBooked(int id) throws ServiceException {
         try {

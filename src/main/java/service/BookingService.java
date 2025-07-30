@@ -31,17 +31,17 @@ public class BookingService {
         }
 
     // Check room availability
-        if (!roomService.isRoomAvailable(roomId)) {
+        if (!bookingDAO.isRoomAvailable(roomId,checkIn, checkOut)) {
             throw new RoomUnavailableException("Room " + roomId + " is not available.");
         }
 
         try {
-            Booking booking = new Booking(0, customerId, roomId, checkIn, checkOut);
+            Booking booking = new Booking(customerId, roomId, checkIn, checkOut);
             bookingDAO.addBooking(booking);
-            roomService.markBooked(roomId);
+            //roomService.markBooked(roomId);
             return booking;
         } catch (Exception e) {
-            roomService.markReleased(roomId); // rollback
+            //roomService.markReleased(roomId); // rollback
             throw new ServiceException("Failed to create booking.", e);
         }
     }

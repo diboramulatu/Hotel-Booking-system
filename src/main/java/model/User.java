@@ -1,9 +1,9 @@
 package model;
 
 public abstract class User {
-    protected int userId;
-    protected String name;
-    protected String email;
+    public int userId;
+    public String name;
+    public String email;
 
     public abstract void showMenu();
 

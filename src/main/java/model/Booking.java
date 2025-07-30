@@ -3,14 +3,13 @@ package model;
 import java.time.LocalDate;
 
 public class Booking {
-    private int bookingId;
+    private int id;
     private int customerId;
     private int roomId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
 
-    public Booking(int bookingId, int customerId, int roomId, LocalDate checkIn, LocalDate checkOut) {
-        this.bookingId = bookingId;
+    public Booking(int customerId, int roomId, LocalDate checkIn, LocalDate checkOut) {        
         this.customerId = customerId;
         this.roomId = roomId;
         this.checkInDate = checkIn;
@@ -26,7 +25,7 @@ public class Booking {
     }
 
     public int getBookingId() {
-        return bookingId;
+        return id;
     }
 
     public int getCustomerId() {
@@ -45,14 +44,14 @@ public class Booking {
         return checkOutDate;
     }
 
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
+    public void setBookingId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "Booking{" +
-                "bookingId=" + bookingId +
+                "id=" + id +
                 ", customerId=" + customerId +
                 ", roomId=" + roomId +
                 ", checkInDate=" + checkInDate +
